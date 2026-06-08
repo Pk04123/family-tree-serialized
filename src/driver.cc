@@ -1,8 +1,8 @@
 #include "family_tree.hpp"
 
 int main() {
+    std::cout << "Family tree starting..." << std::endl;
     FamilyTree ft("./people_file.txt", "./children_file.txt", "./spouse_file.txt");
-    
     // Dadi's family
 
     // std::vector<std::string> children = ft.GetChildren("Renu");
@@ -71,5 +71,6 @@ int main() {
     // std::cout << "Siblings of Appu:" << std::endl;
     // std::cout << siblings;
 
-    ft.PrintImmediateFamily("Chetan");
+    ft.PrintImmediateFamily("Suvra");
+    std::cout << "Here" << std::endl;
 }

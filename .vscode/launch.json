@@ -2,25 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Debugger",
-            "type": "cppdbg", 
+            "name": "C/C++: clang++ debug",
+            "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/exec",
+            "program": "${workspaceFolder}/src/driver",
             "args": [],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false, // This MUST be false for VS Code terminal
-            "MIMode": "lldb",
-            "preLaunchTask": "Make Build",
-            "logging": { "engineLogging": false },
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
+            "preLaunchTask": "C/C++: clang++ build active file"
         }
     ]
 }

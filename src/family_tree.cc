@@ -29,7 +29,8 @@ FamilyTree::FamilyTree(const std::string& people_file, const std::string& childr
         }
         SetChildren(parent_name, children_fs);
     }
-
+     
+    // Spouse File Parsing
     std::string person_1;
     std::string person_2;
     while (spouse_fs.good()) {
@@ -189,6 +190,7 @@ bool FamilyTree::ExistsPerson(const std::string& name) {
 }
 
 void FamilyTree::PrintImmediateFamily(const std::string& person) const {
+    std::cout << "Here" << std::endl;
     std::cout << "Parents:" << std::endl;
     std::vector<std::string> parents = GetParents(person);
     if (parents.empty()) {
