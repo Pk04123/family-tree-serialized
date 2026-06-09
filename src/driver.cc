@@ -4,12 +4,6 @@ int main() {
     std::cout << "Family tree starting..." << std::endl;
     FamilyTree ft;
     ft.AddPerson("Renu");
-    std::cout << "Added Renu" << std::endl;
-    ft.SaveTree();
-    std::cout << "Saved tree after adding Renu" << std::endl;
-    FamilyTree ft2("family_tree.json");
-    std::cout << "Loaded tree from file" << std::endl;
-    return 0;
 
     /*
     FamilyTree ft("family_tree.json"); // Load existing family tree from file

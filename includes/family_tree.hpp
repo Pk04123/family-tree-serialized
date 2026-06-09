@@ -6,6 +6,8 @@
 #include <map>
 #include <string>
 #include <cereal/types/map.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/utility.hpp> // This is where std::pair support lives!
 #include <cereal/archives/json.hpp>
 
 class FamilyTree {
@@ -28,13 +30,18 @@ public:
     bool IsDirectlyRelated(const std::string& person1, const std::string& person2) const;
     bool IsDirectlyRelated(const std::string& person1, const std::string& person2, const std::string& relation);
 
-    template <class Archive>
-    void serialize(Archive& archive) { archive(graph_); }
-    void SaveTree();
+    void SaveTree(const std::string& filename) const;
     
 private:
     // std::pair is name, relation
     std::map<std::string, std::list<std::pair<std::string, std::string>>> graph_;
+    friend class cereal::access;
+
+    template <class Archive>
+    void serialize(Archive& archive) {
+        // using make_nvp gives JSON keys meaningful names
+        archive(cereal::make_nvp("family_graph", graph_)); 
+    }
 };
 
 std::ostream& operator<<(std::ostream& os, const std::vector<std::string>& vec);

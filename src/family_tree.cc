@@ -8,8 +8,9 @@ FamilyTree::FamilyTree(const std::string& filename) {
     if (!ifs.is_open()) {
         throw std::runtime_error("Could not open file: " + filename);
     }
+    
     cereal::JSONInputArchive archive(ifs);
-    archive(graph_);
+    archive(*this); 
 }
 
 bool FamilyTree::ExistsPerson(const std::string& name) {
@@ -201,10 +202,18 @@ void FamilyTree::PrintImmediateFamily(const std::string& person) const {
     }
 }
 
-void FamilyTree::SaveTree() {
-    std::ofstream ofs{"family_tree.json"};
-    cereal::JSONOutputArchive archive(ofs);
-    archive(*this);
+void FamilyTree::SaveTree(const std::string& filename) const {
+    std::ofstream ofs{filename};
+    if (!ofs.is_open()) {
+        throw std::runtime_error("Could not open file for writing: " + filename);
+    }
+    
+    // Explicit scope block forces the archive to destroy and flush 
+    // its data to the file BEFORE ofs closes.
+    {
+        cereal::JSONOutputArchive archive(ofs);
+        archive(*this); // Triggers FamilyTree::serialize
+    } 
 }
 
 std::ostream& operator<<(std::ostream& os, const std::vector<std::string>& vec) {
