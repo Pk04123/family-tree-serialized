@@ -2,8 +2,7 @@
 
 int main() {
     std::cout << "Family tree starting..." << std::endl;
-    FamilyTree ft;
-    ft.AddPerson("Renu");
+    FamilyTree ft("family_tree.json"); // Load existing family tree from file
 
     /*
     FamilyTree ft("family_tree.json"); // Load existing family tree from file
@@ -80,6 +79,6 @@ int main() {
 
     ft.PrintImmediateFamily("Suvra"); */
 
-    ft.SaveTree();  // MUST always be there
+    ft.SaveTree("family_tree.json");  // MUST always be there
     std::cout << "Done" << std::endl;
 }

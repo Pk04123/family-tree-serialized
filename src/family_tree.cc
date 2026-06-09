@@ -76,6 +76,15 @@ void FamilyTree::AddChild(const std::string& parent, const std::string& child) {
     }
 }
 
+void FamilyTree::AddParent(const std::string& child, const std::string& parent) {
+    if (!ExistsPerson(child)) {
+        throw std::invalid_argument("Child does not exist: " + child);
+    }
+    graph_[child].push_back(std::make_pair(parent, "parent"));
+    graph_[parent].push_back(std::make_pair(child, "child"));
+    // Add spouse separately
+}
+
 void FamilyTree::AddSpouse(const std::string& person_1, const std::string& person_2) {
     if (!ExistsPerson(person_1)) {
         throw std::invalid_argument("Person does not exist: " + person_1);

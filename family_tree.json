@@ -1,0 +1,323 @@
+{
+    "value0": {
+        "family_graph": [
+            {
+                "key": "Arun",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Ashish",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Kanika",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Ashish",
+                "value": [
+                    {
+                        "first": "Arun",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Bhuwan",
+                "value": [
+                    {
+                        "first": "Renu",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Bimlavati",
+                "value": [
+                    {
+                        "first": "Pravesh",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Surinder",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Arun",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Renu",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Rewa",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Bubble",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Rummy",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Bubble",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Meghna",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Ruchi",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Chetan",
+                "value": [
+                    {
+                        "first": "Rewa",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Deepika",
+                "value": [
+                    {
+                        "first": "Rewa",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Dolly",
+                "value": [
+                    {
+                        "first": "Rummy",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Kanika",
+                "value": [
+                    {
+                        "first": "Arun",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Meghna",
+                "value": [
+                    {
+                        "first": "Bubble",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Munna",
+                "value": [
+                    {
+                        "first": "Rummy",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Pravesh",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Ratish",
+                "value": [
+                    {
+                        "first": "Surinder",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Renu",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Siddharth",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Shweta",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Bhuwan",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Rewa",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Vibhu",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Chetan",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Deepika",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Ruchi",
+                "value": [
+                    {
+                        "first": "Bubble",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Rummy",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Sheetu",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Dolly",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Munna",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Tinku",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Sadhvi",
+                "value": [
+                    {
+                        "first": "Surinder",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Sheetu",
+                "value": [
+                    {
+                        "first": "Rummy",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Shweta",
+                "value": [
+                    {
+                        "first": "Renu",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Siddharth",
+                "value": [
+                    {
+                        "first": "Renu",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Surinder",
+                "value": [
+                    {
+                        "first": "Bimlavati",
+                        "second": "parent"
+                    },
+                    {
+                        "first": "Ratish",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Unnat",
+                        "second": "child"
+                    },
+                    {
+                        "first": "Sadhvi",
+                        "second": "child"
+                    }
+                ]
+            },
+            {
+                "key": "Tinku",
+                "value": [
+                    {
+                        "first": "Rummy",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Unnat",
+                "value": [
+                    {
+                        "first": "Surinder",
+                        "second": "parent"
+                    }
+                ]
+            },
+            {
+                "key": "Vibhu",
+                "value": [
+                    {
+                        "first": "Rewa",
+                        "second": "parent"
+                    }
+                ]
+            }
+        ]
+    }
+}
