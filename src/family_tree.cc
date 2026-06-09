@@ -3,106 +3,17 @@
 #include <fstream>
 #include <stdexcept>
 
-FamilyTree::FamilyTree(const std::string& people_file, const std::string& children_file, const std::string& spouse_file) {
-    std::ifstream people_fs{people_file};
-    std::ifstream children_fs{children_file};
-    std::ifstream spouse_fs{spouse_file};
-    if (!people_fs.is_open() || !children_fs.is_open() || !spouse_fs.is_open()) {
-        throw std::runtime_error("Could not open file");
-    }
-
-    // Main file parsing - add all people to graph
-    std::string person_name;
-    while (people_fs.good()) {
-        people_fs >> person_name;
-        graph_[person_name] = std::list<std::pair<std::string, std::string>>();
-    }
-
-    // Children file parsing - add children relations to graph
-    std::string parent_name;
-    char throw_away;
-    while (children_fs.good()) {
-        children_fs >> parent_name;
-        children_fs >> throw_away;
-        if (children_fs.fail()) {
-            break;
-        }
-        SetChildren(parent_name, children_fs);
-    }
-     
-    // Spouse File Parsing
-    std::string person_1;
-    std::string person_2;
-    while (spouse_fs.good()) {
-        spouse_fs >> person_1;
-        spouse_fs >> person_2;
-        SetSpouse(person_1, person_2);
-    }
+bool FamilyTree::ExistsPerson(const std::string& name) {
+    return graph_.contains(name);
 }
 
-void FamilyTree::SetChildren(const std::string& parent, std::ifstream& children_fs) {
-    std::string child;
-    while (true) {
-        children_fs >> child;
-        if (child == ";") {
-            break;
-        }
-        SetChild(parent, child);       
+void FamilyTree::AddPerson(const std::string& person) {
+    // Only the first person should have no relation
+    if (graph_.empty()) {
+        graph_[person] = std::list<std::pair<std::string, std::string>>();
+    } else {
+        throw std::invalid_argument("Person already exists: " + person);
     }
-}
-
-void FamilyTree::SetChild(const std::string& parent, const std::string& child) {
-    graph_[parent].push_back(std::make_pair(child, "child"));
-    graph_[child].push_back(std::make_pair(parent, "parent"));
-    std::string spouse = GetSpouse(parent);
-    if (!spouse.empty()) {
-        graph_[spouse].push_back(std::make_pair(child, "child"));
-        graph_[child].push_back(std::make_pair(spouse, "parent"));
-    }
-}
-
-void FamilyTree::SetSpouse(const std::string& person_1, const std::string& person_2) {
-    graph_[person_1].push_back(std::make_pair(person_2, "spouse"));
-    graph_[person_2].push_back(std::make_pair(person_1, "spouse"));
-    // Both should have same children
-    for (const auto& relation : graph_[person_1]) {
-        if (relation.second == "child") {
-            std::string child = relation.first;
-            if (!IsDirectlyRelated(person_2, child, "child")) {
-                graph_[person_2].push_back(std::make_pair(child, "child"));
-                graph_[child].push_back(std::make_pair(person_2, "parent"));
-            }
-            
-        }
-    }
-    for (const auto& relation : graph_[person_2]) {
-        if (relation.second == "child") {
-            std::string child = relation.first;
-            if (!IsDirectlyRelated(person_1, child, "child")) {
-                graph_[person_1].push_back(std::make_pair(child, "child"));
-                graph_[child].push_back(std::make_pair(person_1, "parent"));
-            }
-            
-        }
-    }
-}
-
-bool FamilyTree::IsDirectlyRelated(const std::string& person1, const std::string& person2) const {
-    for (const auto& relation : graph_.at(person1)) {
-        if (relation.first == person2) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool FamilyTree::IsDirectlyRelated(const std::string& person1, const std::string& person2, const std::string& relation) {
-    for (const auto& rel : graph_[person1]) {
-        if (rel.first == person2 && rel.second == relation) {
-            return true;
-        }
-    }
-    return false;
 }
 
 std::vector<std::string> FamilyTree::GetChildren(const std::string& person) const {
@@ -132,6 +43,77 @@ std::vector<std::string> FamilyTree::GetSiblings(const std::string& person) cons
     }
     return siblings;
 }
+
+std::string FamilyTree::GetSpouse(const std::string& name) const {
+    for (const auto& relation : graph_.at(name)) {
+        if (relation.second == "spouse") {
+            return relation.first; // Assuming one spouse per person
+        }
+    }
+    return ""
+}
+
+void FamilyTree::AddChild(const std::string& parent, const std::string& child) {
+    if (!ExistsPerson(parent)) {
+        throw std::invalid_argument("Parent does not exist: " + parent);
+    }
+    graph_[parent].push_back(std::make_pair(child, "child"));
+    graph_[child].push_back(std::make_pair(parent, "parent"));
+    std::string spouse = GetSpouse(parent);
+    if (!spouse.empty()) {
+        graph_[spouse].push_back(std::make_pair(child, "child"));
+        graph_[child].push_back(std::make_pair(spouse, "parent"));
+    }
+}
+
+void FamilyTree::AddSpouse(const std::string& person_1, const std::string& person_2) {
+    if (!ExistsPerson(person_1)) {
+        throw std::invalid_argument("Person does not exist: " + person_1);
+    }
+    graph_[person_1].push_back(std::make_pair(person_2, "spouse"));
+    graph_[person_2].push_back(std::make_pair(person_1, "spouse"));
+    // Both should have same children
+    for (const auto& relation : graph_[person_1]) {
+        if (relation.second == "child") {
+            std::string child = relation.first;
+            if (!IsDirectlyRelated(person_2, child, "child")) {
+                graph_[person_2].push_back(std::make_pair(child, "child"));
+                graph_[child].push_back(std::make_pair(person_2, "parent"));
+            }
+            
+        }
+    }
+    for (const auto& relation : graph_[person_2]) {
+        if (relation.second == "child") {
+            std::string child = relation.first;
+            if (!IsDirectlyRelated(person_1, child, "child")) {
+                graph_[person_1].push_back(std::make_pair(child, "child"));
+                graph_[child].push_back(std::make_pair(person_1, "parent"));
+            }
+            
+        }
+    }
+}
+
+bool FamilyTree::IsDirectlyRelated(const std::string& person1, const std::string& person2) const {
+    for (const auto& rel : graph_.at(person1)) {
+        if (rel.first == person2) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool FamilyTree::IsDirectlyRelated(const std::string& person1, const std::string& person2, const std::string& relation) {
+    for (const auto& rel : graph_[person1]) {
+        if (rel.first == person2 && rel.second == relation) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 std::vector<std::string> FamilyTree::GetParents(const std::string& person) const {
     std::vector<std::string> parents;
@@ -173,20 +155,6 @@ std::vector<std::string> FamilyTree::GetGrandchildren(const std::string& person)
         }
     }
     return grandchildren;
-}
-
-std::string FamilyTree::GetSpouse(const std::string& name) const {
-    for (const auto& relation : graph_.at(name)) {
-        if (relation.second == "spouse") {
-            return relation.first;
-        }
-    }
-    return "";
-}
-
-bool FamilyTree::ExistsPerson(const std::string& name) {
-    return graph_.contains(name);
-    // Error because the linter is not aware of C++20
 }
 
 void FamilyTree::PrintImmediateFamily(const std::string& person) const {
