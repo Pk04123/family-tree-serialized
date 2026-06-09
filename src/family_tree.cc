@@ -3,6 +3,15 @@
 #include <fstream>
 #include <stdexcept>
 
+FamilyTree::FamilyTree(const std::string& filename) {
+    std::ifstream ifs{filename};
+    if (!ifs.is_open()) {
+        throw std::runtime_error("Could not open file: " + filename);
+    }
+    cereal::JSONInputArchive archive(ifs);
+    archive(graph_);
+}
+
 bool FamilyTree::ExistsPerson(const std::string& name) {
     return graph_.contains(name);
 }
@@ -50,7 +59,7 @@ std::string FamilyTree::GetSpouse(const std::string& name) const {
             return relation.first; // Assuming one spouse per person
         }
     }
-    return ""
+    return "";
 }
 
 void FamilyTree::AddChild(const std::string& parent, const std::string& child) {
@@ -190,6 +199,12 @@ void FamilyTree::PrintImmediateFamily(const std::string& person) const {
     } else {
         std::cout << '\t' << spouse << std::endl;
     }
+}
+
+void FamilyTree::SaveTree() {
+    std::ofstream ofs{"family_tree.json"};
+    cereal::JSONOutputArchive archive(ofs);
+    archive(*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const std::vector<std::string>& vec) {
