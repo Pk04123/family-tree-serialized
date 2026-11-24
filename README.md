@@ -18,13 +18,17 @@ This project represents family relationships as a graph structure and allows que
 
 ## What I Used
 - Language: C++  
-- Concepts: Graphs, data structures, traversal  
+- Concepts: Graphs, data structures, BFS  
 - Tools: Git, GitHub, VSCode, Debugger  
 
 ## Usage
-- Relations can be accessed via queries defined in the header (`.hpp`) files.  
-- To add people, edit the `.txt` files and replace the names with those of people from your family.
+- When creating a new family tree, use the default constructor
+- When adding the first person to an empty family tree, use the AddPerson() function
+- To add people further, use one of the mutator ("setter") functions declared in the header (.hpp) file
+- Relations can be accessed via accessors ("getters") defined in the header (.hpp) file.  
 - In the terminal, type 'make exec' to compile and './bin/exec' to run 'driver.cc'
+- End the program with the SaveTree() function to write the contents of a graph to a JSON file
+- To edit and load a graph saved to a JSON file, use the parameterized constructor (with the filename as input)
 
 ## Roadmap
 - Add visualization of the family tree (graph rendering)  
