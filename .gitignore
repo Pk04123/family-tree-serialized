@@ -6,4 +6,7 @@ data/
 
 # OS & Editor files
 .DS_Store
-.vscode/
+.vscode/bin/
+*.o
+*.dSYM/
+.DS_Store
