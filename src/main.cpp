@@ -25,5 +25,7 @@ int main() {
         std::cout << "Siddharth Kumar has no spouse recorded." << std::endl;
     }
 
+    ft.PrintImmediateFamily("Shweta Kumar");
+
     std::cout << "Done" << std::endl;
 }
